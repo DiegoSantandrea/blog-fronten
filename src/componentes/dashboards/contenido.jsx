@@ -1,32 +1,20 @@
 import PropTypes from "prop-types";
 import { Route, Routes } from "react-router-dom";
-import { Posts } from "../post/Posts";
-import { PostView } from "../post/PostView";
+import { Publications } from "../../componentes/publication/Publications";
+import { PublicationView } from "../../componentes/publication/PublicationView";
 
-export const Content = ({ posts, getPosts }) => {
+export const DashboardContent = ({ publications, fetchPublications }) => {
     return (
-        <div className="content main-content">
+        <div className="p-4">
             <Routes>
-                <Route
-                    path="/"
-                    element={<Posts posts={posts} />}
-                />
-                <Route
-                    path="/:pid"
-                    element={<PostView getPosts={getPosts} />}
-                />
+                <Route path="/" element={<Publications publications={publications} />} />
+                <Route path="/:id" element={<PublicationView fetchPublications={fetchPublications} />} />
             </Routes>
         </div>
-    )
-}
+    );
+};
 
-Content.propTypes = {
-    posts: PropTypes.arrayOf(
-        PropTypes.shape({
-            pid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            title: PropTypes.string.isRequired,
-            course: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    getPosts: PropTypes.func.isRequired,
+DashboardContent.propTypes = {
+    publications: PropTypes.array.isRequired,
+    fetchPublications: PropTypes.func.isRequired,
 };

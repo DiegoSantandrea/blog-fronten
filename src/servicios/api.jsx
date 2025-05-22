@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const ApiClient = axios.create({
-    baseURL: "http://localhost:3001/kfc-blog/v1",
+    baseURL: "http://localhost:3001/blog/v1",
     timeout: 5000,
     httpsAgent: false,
 });
 
-export const getPosts = async () => {
+export const obtenerPublicaciones = async () => {
     try {
-        return await ApiClient.get("/post/");
+        return await ApiClient.get("/publicacion/");
     } catch (e) {
         return{
             error: true,
@@ -17,10 +17,10 @@ export const getPosts = async () => {
     }
 }
 
-export const getPostDetails = async (pid) => {
+export const obtenerPublicacionPorId = async (id) => {
     try {
-        const { data } = await ApiClient.get(`/post/${pid}`);
-        return { data };
+        const { data } = await ApiClient.get(`/publicacion/${id}`);
+        return data ;
     } catch (e) {
         return {
             error: true,
@@ -29,20 +29,14 @@ export const getPostDetails = async (pid) => {
     }
 };
 
-
-
-export const getPostFilter = async (filters) => {
+export const filtrarPublicaciones = async (filters) => {
     try {
-        const { data } = await ApiClient.get("/post/filter", {
+        const { data } = await ApiClient.get("/publicacion/filter", {
             params: {
-                course: filters.course || undefined,
-                title: filters.title || undefined,
-                sortByDate: filters.order || undefined,
-                startDate: filters.startDate || undefined,
-                endDate: filters.endDate || undefined,
+                curso: filters.curso || undefined,
             },
         });
-        return data;
+        return { data } ;
     } catch (e) {
         return {
             error: true,
@@ -53,11 +47,11 @@ export const getPostFilter = async (filters) => {
 
 
 
-export const AddComment = async (pid, {username, text}) => {
+export const anadirComentario = async (id, {usuario, comentario}) => {
     try {
-        const { data } = await ApiClient.patch(`/post/${pid}`, {
-            username,
-            text,
+        const { data } = await ApiClient.patch(`/publicacion/${id}`, {
+            usuario,
+            comentario,
         });
         return data;
     } catch (e) {

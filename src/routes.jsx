@@ -1,8 +1,8 @@
-import { PostView } from "./components/post/PostView";
-import { DashboardPage } from "./pages/dashboard";
-import { getPosts } from "./services";
+import { PublicationView } from './componentes/publication/PublicationView';
+import { DashboardPage } from "./pages/dashboard"
+import { obtenerPublicaciones } from './servicios';
 
 export const routes = [
-    { path: '/*', element: <DashboardPage /> },
-    { path: "/post/:pid", element: <PostView getPosts={getPosts} /> }
-];
+    { path: '/', element: <DashboardPage /> },
+    { path: '/publication/:id', element: <PublicationView obtenerPublicaciones={obtenerPublicaciones} /> },
+]
